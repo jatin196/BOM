@@ -153,3 +153,5 @@ media/
 **/migrations/**
 !**/migrations
 !**/migrations/__init__.py
+AllParts.js
+user.service.js
