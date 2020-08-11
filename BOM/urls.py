@@ -14,8 +14,9 @@ Including anothesr URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.authtoken import views
+from django.views.generic import TemplateView
 from customUser.views import obtain_auth_token
 urlpatterns = [
 ]
@@ -30,6 +31,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include('bom_project.api.urls')),
     # path('part/', include('bom_project.urls')),
+    re_path('.*', TemplateView.as_view(template_name='index.html'))
 
 
 

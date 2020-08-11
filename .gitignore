@@ -49,7 +49,7 @@ __pycache__/
 bom-venv/
 bom-venv
 /bom-venv
-
+.vscode
 .Python
 env/
 build/
