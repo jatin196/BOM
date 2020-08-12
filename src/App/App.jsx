@@ -7,7 +7,7 @@ import { alertActions } from '../_actions';
 import { PrivateRoute } from '../_components';
 import  HomePage  from '../HomePage/HomePage';
 import  LoginPage  from '../LoginPage/LoginPage';
-import { RegisterPage } from '../RegisterPage';
+import  RegisterPage  from '../RegisterPage/RegisterPage';
 import  AddPart  from '../AddPart/AddPart';
 import { AddProject } from '../Add-Project';
 import { AllProjects } from '../All-Projects'
@@ -44,7 +44,7 @@ class App extends React.Component {
 
                                 <PrivateRoute path="/all-parts" component={AllParts} />
                                 <PrivateRoute path="/add-part" component={AddPart} />
-                                <Redirect from="*" to="/" />
+                                <Redirect from="*" to="/home" />
                             </Switch>
                         </Router>
                     </div>
