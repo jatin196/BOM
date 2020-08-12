@@ -3,7 +3,7 @@
 export const userService = {
     login,
     logout,
-    // register,
+    register,
     // getAll,
     // getById,
     // update,
@@ -75,15 +75,35 @@ export function logout() {
 //     return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 // }
 
-// function register(user) {
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(user)
-//     };
+    function register(user) {
+        console.log(user);
+        var axios = require('axios');
+        var qs = require('qs');
+        var data = qs.stringify({
+            ...user
+        });
+        var config = {
+        method: 'post',
+        url: 'http://127.0.0.1:8000/rest-auth/registration/',
+        headers: { 
+            // 'Authorization': 'Basic YWRtaW5AZ21haWwuY29tOnJvb3Q=', 
+            'Content-Type': 'application/x-www-form-urlencoded', 
+            // 'Cookie': 'messages="5e3e593aa071122ff18f9bc0ba3e51ad9d52de8e$[[\\"__json_message\\"\\0540\\05425\\054\\"Successfully signed in as test@gmail.com.\\"]]"; csrftoken=sEouSLANTG7fkKXbzHl8kgkpWzMqIeL18etPJ3fEuXzYqaKWiMBgnnimD0WWKmj6; sessionid=l0n5ravup8zwjk1hy4x2goivex0j4nen'
+        },
+        data : data
+        };
 
-//     return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
-// }
+        return axios(config)
+        .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+        console.log(error);
+        });
+
+
+    // return axios({url : `http://127.0.0.1/rest-auth/registration/`, ...requestOptions}).then(handleResponse);
+}
 
 // function update(user) {
 //     const requestOptions = {

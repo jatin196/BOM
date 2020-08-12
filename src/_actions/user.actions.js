@@ -20,7 +20,7 @@ function login(username, password) {
                 user => { 
                     dispatch(success(user));
 
-                    history.push('/home');
+                    history.push('/');
                     window.location.reload(true)
                 },
                 error => {
