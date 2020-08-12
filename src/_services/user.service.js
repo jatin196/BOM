@@ -1,5 +1,6 @@
 // import config from 'config';
 
+
 export const userService = {
     login,
     logout,
@@ -45,9 +46,10 @@ async function login(email, password) {
         })
         .then(handleResponse)
         .then(user => {
+            console.log("setting user ", user);
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
-            
+            console.log(localStorage.getItem('user'));
             return user;
         });
 }

@@ -2,6 +2,7 @@ import { userConstants } from '../_constants';
 import { userService } from '../_services';
 import { alertActions } from './';
 import { history } from '../_helpers';
+import { Redirect } from 'react-router-dom'
 
 export const userActions = {
     login,
@@ -20,8 +21,8 @@ function login(username, password) {
                 user => { 
                     dispatch(success(user));
 
-                    history.push('/');
-                    window.location.reload(true)
+                    history.replace('/');
+                    // window.location.reload(true)
                 },
                 error => {
                     dispatch(failure(error.toString()));
