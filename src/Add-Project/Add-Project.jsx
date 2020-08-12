@@ -20,7 +20,7 @@ import TextField from '@material-ui/core/TextField';
 
 
      handleSubmit(e) {
-const url = process.env.serverUrl;
+const url = process.env.REACT_APP_AXIOS_URL;
 
         e.preventDefault();
         var axios = require('axios');

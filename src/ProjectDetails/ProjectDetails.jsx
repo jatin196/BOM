@@ -19,7 +19,7 @@ import { withRouter } from "react-router";
     componentDidMount() {
         
         const id = this.props.match.params.projectId
-const url = process.env.serverUrl;
+const url = process.env.REACT_APP_AXIOS_URL;
 
         console.log(this.props)
         axios({

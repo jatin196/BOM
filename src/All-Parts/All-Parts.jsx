@@ -18,7 +18,7 @@ class AllParts extends Component {
 
     componentDidMount(){
     const axios = require('axios')
-const url = process.env.serverUrl;
+const url = process.env.REACT_APP_AXIOS_URL;
 
     axios({
         method: 'get',

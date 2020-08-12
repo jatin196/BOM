@@ -34,7 +34,7 @@ async function login(email, password) {
     //     headers: { 'Content-Type': 'application/json' },
     //     body: JSON.stringify({ username, password })
     // };
-    const url = process.env.serverUrl;
+    const url = process.env.REACT_APP_AXIOS_URL;
 
     return   axios({
         method: 'post',
@@ -76,10 +76,10 @@ export function logout() {
 
 //     return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 // }
-async function register(user) {
-const url = process.env.serverUrl;
-
-    const csrftoken =  await getCsrfToken();
+ function register(user) {
+const url = process.env.REACT_APP_AXIOS_URL;
+    // const csrftoken =  await getCsrfToken();
+    console.log(url);
     var axios = require('axios');
     var qs = require('qs');
     var data = qs.stringify({ ...user    });
@@ -93,8 +93,9 @@ const url = process.env.serverUrl;
       },
       data : data
     };
+    console.log(config.url);
     
-    axios(config)
+    return axios(config)
     .then(function (response) {
       console.log(JSON.stringify(response.data));
     })

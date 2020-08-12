@@ -72,7 +72,7 @@ import { withRouter } from "react-router";
          
             //     }).then(res => console.log("res", res))
                 var axios = require('axios');
-        const url = process.env.serverUrl;
+        const url = process.env.REACT_APP_AXIOS_URL;
 
                 var qs = require('qs');
                 var data = qs.stringify({
