@@ -19,10 +19,12 @@ import { withRouter } from "react-router";
     componentDidMount() {
         
         const id = this.props.match.params.projectId
+const url = process.env.serverUrl;
+
         console.log(this.props)
         axios({
             method: 'GET',
-            url: `http://127.0.0.1:8000/api/projects/${id}/`
+            url: `${url}/api/projects/${id}/`
         }).then(res => {
             console.log(res)
             this.setState({project : res.data})

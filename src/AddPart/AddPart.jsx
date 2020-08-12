@@ -19,6 +19,9 @@ import { withRouter } from "react-router";
         this.handleSubmit = this.handleSubmit.bind(this);
 
 
+
+
+
     }
 
     async handleSubmit(e) {
@@ -69,6 +72,8 @@ import { withRouter } from "react-router";
          
             //     }).then(res => console.log("res", res))
                 var axios = require('axios');
+        const url = process.env.serverUrl;
+
                 var qs = require('qs');
                 var data = qs.stringify({
                 'part_desc': part_desc,
@@ -80,7 +85,7 @@ import { withRouter } from "react-router";
                 console.log(data);
                 var config = {
                 method: 'post',
-                url: 'http://127.0.0.1:8000/api/parts/',
+                url: `${url}/api/parts/`,
                 headers: { 
                     'Content-Type': 'application/x-www-form-urlencoded', 
                 },
