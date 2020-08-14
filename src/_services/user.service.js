@@ -115,17 +115,17 @@ const url = process.env.REACT_APP_AXIOS_URL;
 //         body: JSON.stringify(user)
 //     };
 
-        return axios(config)
-        .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-        console.log(error);
-        });
+        // return axios(config)
+        // .then(function (response) {
+        // console.log(JSON.stringify(response.data));
+        // })
+        // .catch(function (error) {
+        // console.log(error);
+        // });
 
 
     // return axios({url : `http://127.0.0.1/rest-auth/registration/`, ...requestOptions}).then(handleResponse);
-}
+// }
 
 // function update(user) {
 //     const requestOptions = {

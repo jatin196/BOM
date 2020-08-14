@@ -95,11 +95,7 @@ class RegisterPage extends React.Component {
                         }
                            <Link component={RouterLink}  to={{pathname: `/login`}}>
                     
-<<<<<<< HEAD
-                    <button className="btn btn-link" >Cancel</button>
-=======
                     <button className="btn btn-link" >To Login</button>
->>>>>>> afterbuild2
                 </Link>
                   
                     </div>
@@ -118,10 +114,4 @@ const actionCreators = {
     register: userActions.register
 }
 
-<<<<<<< HEAD
-// const connectedRegisterPage = connect(mapState, actionCreators)(RegisterPage);
-// export { connectedRegisterPage as RegisterPage };
-export default compose(withRouter, connect(mapState, actionCreators))(RegisterPage);
-=======
 export default connect(mapState, actionCreators)(RegisterPage) 
->>>>>>> afterbuild2

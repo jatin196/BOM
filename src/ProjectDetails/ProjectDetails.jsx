@@ -4,6 +4,7 @@ import axios from 'axios'
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import { connect } from 'react-redux'
+import { Navbar } from '../Navbar'
 
 import Link from '@material-ui/core/Link';
 import {getProject} from '../_actions/api.actions'
@@ -44,6 +45,8 @@ import { withRouter } from "react-router";
     }
     render() {
         return (
+            <div>
+            <Navbar></Navbar>
             <div>
                   <div className="container-fluid">
                     <div class="row">
@@ -97,6 +100,7 @@ import { withRouter } from "react-router";
             }
             </tbody>
             </table>
+            </div>
             </div>
         )}}
 
