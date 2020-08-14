@@ -8,11 +8,7 @@ import { PrivateRoute } from '../_components';
 import  HomePage  from '../HomePage/HomePage';
 import  LoginPage  from '../LoginPage/LoginPage';
 import  RegisterPage  from '../RegisterPage/RegisterPage';
-<<<<<<< HEAD
-import  AddPart  from '../AddPart/AddPart';
-=======
 import { AddPart } from '../AddPart/AddPart';
->>>>>>> afterbuild2
 import { AddProject } from '../Add-Project';
 import { AllProjects } from '../All-Projects'
 import { AllParts } from '../All-Parts';

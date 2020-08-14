@@ -7,7 +7,6 @@ import { userActions } from '../_actions';
 import axios from 'axios'
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-import Link from '@material-ui/core/Link';
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
