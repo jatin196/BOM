@@ -10,12 +10,20 @@ class ProjectManager(models.Manager):
 class Project(models.Model):
     project_name = models.CharField(verbose_name='Project Name', max_length=120, unique=True)
     project_desc = models.TextField(verbose_name='Project Description', blank=True, null=True)
+
     objects=ProjectManager()
 
     def __str__(self):
         return self.project_name
     
 
+PENDING_STATUS = [
+    ('done', 'Done'),
+    ('improve', 'Needs Improvement'),
+    ('pending', 'Pending'),
+    ('discuss', 'Discuss Later'),
+    
+]
 class PartManager(models.Manager):
 
     def get_by_natural_key(self, part_number):
@@ -26,7 +34,7 @@ class Part(models.Model):
     part_number = models.SlugField(unique=True)
     part_desc = models.TextField()
     parent_part = models.ForeignKey('self', null=True, blank=True, related_name='sub_assembly', on_delete=models.CASCADE)
-    
+    status = models.CharField(max_length=10, choices=PENDING_STATUS, default='pending' )
     objects = PartManager()
     def natural_key(self):
         return self.part_number
