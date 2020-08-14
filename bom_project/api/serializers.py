@@ -12,7 +12,7 @@ class PartSerializer(serializers.ModelSerializer):
     class Meta:
         depth=2
         model=Part
-        fields = ('id','project', 'part_desc', 'part_number', 'parent_part')
+        fields = ('id','project', 'part_desc', 'part_number', 'parent_part', 'status')
     def create(self, validated_data):
         # print(validated_data['project.project_name'])
         # print(validated_data['parent_part'])

@@ -45,25 +45,36 @@ import { withRouter } from "react-router";
     render() {
         return (
             <div>
-                <div class="container-fluid">
+                  <div className="container-fluid">
                     <div class="row">
-                  
-            <div className="d-flex justify-content-center col mt-5 "><h1>{ this.props.project ?  this.props.project.project_name  : "loading ... "   }</h1></div>
+            <div className="d-flex justify-content-center col mt-5 "><h1>{this.props.project ?  this.props.project.project_name  : "loading ... "  } </h1></div>
             <div className="float-right d-flex align-items-end mb-3 ">
-               { this.state.project && <Link component={RouterLink}  to={{pathname: `/add-part`, state: {'project' :`${this.state.project.project_name}`, 'parts': `${this.state.project.parts}`}}}>
-                    
-                 <Chip color="primary" label="Add Part" avatar={<Avatar>+</Avatar>} /> 
-                 </Link>}
+            <Link component={RouterLink}  to={{pathname: `/add-part`, state: {'project' :`${this.state.project.project_name}`, 'parts': `${this.state.project.parts}`}}}>
+                <button className="btn float-right btn-link ml-auto " >Add Part</button> 
+                 </Link>
             </div>
             </div>
+            </div>
+            {/* <div class="container-fluid">
+                <div class="row">
+                
+        <div className="d-flex justify-content-center col mt-5 "><h1>{ this.props.project ?  this.props.project.project_name  : "loading ... "   }</h1></div>
+        <div className="float-right d-flex align-items-end mb-3 ">
+            { this.state.project && <Link component={RouterLink}  to={{pathname: `/add-part`, state: {'project' :`${this.state.project.project_name}`, 'parts': `${this.state.project.parts}`}}}>
+                
+                <Chip color="primary" label="Add Part" avatar={<Avatar>+</Avatar>} /> 
+                </Link>}
+        </div>
+        </div>
 
-            </div>
+        </div> */}
             <table className="table table-striped">
             <thead>
              <tr>
                 <th scope="col">#</th>
                 <th scope="col">Part Number</th>
                 <th scope="col">Part Description</th>
+                <th scope="col">Status</th>
                 <th scope="col">Parent Part</th>
             </tr>
             </thead>
@@ -76,6 +87,7 @@ import { withRouter } from "react-router";
                         <th scope="row">{index}</th>
                         <td>{part.part_number}</td>
                         <td>{part.part_desc}</td>
+                        <td>{part.status}</td>
                         <td>{part.parent_part ? part.parent_part : <span>null</span> }</td>
                     </tr>)
                 })
