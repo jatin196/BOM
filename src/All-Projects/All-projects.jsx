@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 // import { MemoryRouter as Router } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
+import {getAllProjects} from '../_actions/api.actions'
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -22,23 +23,37 @@ import Link from '@material-ui/core/Link';
 
 
  class AllProjects extends Component {
+     
     constructor(props) {
         super(props)
     
         this.state = {
              projects: []
         }
+
     }
-    componentDidMount(){
-        const axios = require('axios')
-        axios({
-            method: 'get',
-            url : 'http://127.0.0.1:8000/api/projects/'
-            }
-        ).then(res => {
-            console.log(res)
-            this.setState({projects: res.data})
-        })
+        // componentWillUpdate({projects}){
+        //     this.setState({projects })
+        // }
+    async componentDidMount(){
+        // const axios = require('axios')
+        // const url = process.env.REACT_APP_AXIOS_URL;
+
+        // axios({
+        //     method: 'get',
+            
+        //     url : `${url}/api/projects/`
+         //     }
+        // ).then(res => {
+        //     console.log(res)
+        //     this.setState({projects: res.data})
+        // })
+
+        await this.props.getProjects()
+        this.setState({projects : this.props.projects})
+        // if ( this.props.projects){
+        //     console.log("abc", this.props.projects);
+        // this.setState({project: this.props.projects})}
     }
     
   render() {
@@ -57,8 +72,8 @@ import Link from '@material-ui/core/Link';
                     <Typography variant="h2" align="center" gutterBottom>
                                         All Projects
                                     </Typography>
-                    {
-                        ("loading..." &&  this.state.projects.map(project => {
+                    {   this.props.projects ?
+                          this.props.projects.map(project => {
                             return (
                                 <Grid item xs={12} sm={6} key={project.id}>
 
@@ -77,9 +92,9 @@ import Link from '@material-ui/core/Link';
                                 </Link>
                                 </Grid>
                             )
-                        })) 
+                        }) 
+                        : "loading..."
                     }
-  
 </Grid>
 </div>
             </div>
@@ -87,12 +102,16 @@ import Link from '@material-ui/core/Link';
     }
 }
 
-const mapStateToProps = (state) => ({
-    
-})
+const mapStateToProps = (state) => {
+    const {loading, projects} = state.api
+    return {
+        loading : loading,
+        projects : projects
+    }    
+}
 
 const mapDispatchToProps = {
-    
+    getProjects : getAllProjects
 }
 
 const connectedAllProjects = connect(mapStateToProps, mapDispatchToProps)(AllProjects)

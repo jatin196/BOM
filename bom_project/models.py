@@ -25,7 +25,7 @@ class Part(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE, related_name='parts')
     part_number = models.SlugField(unique=True)
     part_desc = models.TextField()
-    parent_part = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
+    parent_part = models.ForeignKey('self', null=True, blank=True, related_name='sub_assembly', on_delete=models.CASCADE)
     
     objects = PartManager()
     def natural_key(self):

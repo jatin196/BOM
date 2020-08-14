@@ -25,11 +25,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('api-token-auth/', obtain_auth_token),
-
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
     # path('rest-auth/', include('rest_auth.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('api/', include('bom_project.api.urls')),
+    path('', include('home.urls')),         
+
     # path('part/', include('bom_project.urls')),
     re_path('.*', TemplateView.as_view(template_name='index.html'))
 

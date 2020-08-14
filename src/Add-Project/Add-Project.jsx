@@ -20,6 +20,8 @@ import TextField from '@material-ui/core/TextField';
 
 
      handleSubmit(e) {
+const url = process.env.REACT_APP_AXIOS_URL;
+
         e.preventDefault();
         var axios = require('axios');
         var qs = require('qs');
@@ -32,7 +34,7 @@ import TextField from '@material-ui/core/TextField';
                    });
                    var config = {
                      method: 'post',
-                     url: 'http://127.0.0.1:8000/api/projects/',
+                     url: `${url}/api/projects/`,
                      headers: { 
                        'Content-Type': 'application/x-www-form-urlencoded', 
                      },

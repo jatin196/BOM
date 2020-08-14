@@ -8,11 +8,15 @@ import { PrivateRoute } from '../_components';
 import  HomePage  from '../HomePage/HomePage';
 import  LoginPage  from '../LoginPage/LoginPage';
 import  RegisterPage  from '../RegisterPage/RegisterPage';
+<<<<<<< HEAD
 import  AddPart  from '../AddPart/AddPart';
+=======
+import { AddPart } from '../AddPart/AddPart';
+>>>>>>> afterbuild2
 import { AddProject } from '../Add-Project';
 import { AllProjects } from '../All-Projects'
 import { AllParts } from '../All-Parts';
-import  ProjectDetails  from '../ProjectDetails/ProjectDetails'
+import  {ProjectDetails}  from '../ProjectDetails/ProjectDetails'
 
 class App extends React.Component {
     constructor(props) {
@@ -22,6 +26,7 @@ class App extends React.Component {
             // clear alert on location change
             this.props.clearAlerts();
         });
+        
     }
 
     render() {
@@ -45,7 +50,7 @@ class App extends React.Component {
 
                                 <PrivateRoute path="/all-parts" component={AllParts} />
                                 <PrivateRoute path="/add-part" component={AddPart} />
-                                <Redirect from="*" to="/" />
+                                <Redirect from="*" to="/home" />
                             </Switch>
                         </Router>
                     </div>

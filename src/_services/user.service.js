@@ -11,18 +11,19 @@ export const userService = {
     // delete: _delete
 };
 
-// const API_HOST = 'http://localhost:8000';
-// let _csrfToken = null;
-// export async function getCsrfToken() {
-//   if (_csrfToken === null) {
-//     const response = await fetch(`${API_HOST}/csrf/`, {
-//       credentials: 'include',
-//     });
-//     const data = await response.json();
-//     _csrfToken = data.csrfToken;
-//   }
-//   return _csrfToken;
-// }
+let _csrfToken = null;
+export async function getCsrfToken() {
+const url = process.env.REACT_APP_AXIOS_URL;
+
+  if (_csrfToken === null) {
+    const response = await fetch(`${url}/csrf/`, {
+      credentials: 'include',
+    });
+    const data = await response.json();
+    _csrfToken = data.csrfToken;
+  }
+  return _csrfToken;
+}
 
 
 async function login(email, password) {
@@ -34,10 +35,11 @@ async function login(email, password) {
     //     headers: { 'Content-Type': 'application/json' },
     //     body: JSON.stringify({ username, password })
     // };
+    const url = process.env.REACT_APP_AXIOS_URL;
 
     return   axios({
         method: 'post',
-        url: `http://127.0.0.1:8000/api-token-auth/`,
+        url: `${url}/api-token-auth/`,
         data: {
             "email": email, 
             "password": password, 
@@ -76,24 +78,42 @@ export function logout() {
 
 //     return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 // }
+ function register(user) {
+const url = process.env.REACT_APP_AXIOS_URL;
+    // const csrftoken =  await getCsrfToken();
+    console.log(url);
+    var axios = require('axios');
+    var qs = require('qs');
+    var data = qs.stringify({ ...user    });
+    var config = {
+      method: 'post',
+      url: `${url}/rest-auth/registration/`,
+      headers: { 
+        // 'X-CSRFToken': 'TEieokx6yltFchpzagX1M2sPZmLRMCgesMR9wdgta35Xv8fd1EQAtLS9YUCsGL9a', 
+        'Content-Type': 'application/x-www-form-urlencoded', 
+        // 'Cookie': 'messages="600a5b1f839d50fece9972251fe6b648aea26140$[[\\"__json_message\\"\\0540\\05425\\054\\"Successfully signed in as testw4@gmail.com.\\"]]"; csrftoken=pf0b2KO8aYqIPbktgmjjcalDymII7W77RkfahVUDyIs1yngpmBfB2wXxcwCTTJmM; sessionid=8bjuzfggusjg4300d8rx4nkwnkxl9dn2'
+      },
+      data : data
+    };
+    console.log(config.url);
+    
+    return axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    
 
-    function register(user) {
-        console.log(user);
-        var axios = require('axios');
-        var qs = require('qs');
-        var data = qs.stringify({
-            ...user
-        });
-        var config = {
-        method: 'post',
-        url: 'http://127.0.0.1:8000/rest-auth/registration/',
-        headers: { 
-            // 'Authorization': 'Basic YWRtaW5AZ21haWwuY29tOnJvb3Q=', 
-            'Content-Type': 'application/x-www-form-urlencoded', 
-            // 'Cookie': 'messages="5e3e593aa071122ff18f9bc0ba3e51ad9d52de8e$[[\\"__json_message\\"\\0540\\05425\\054\\"Successfully signed in as test@gmail.com.\\"]]"; csrftoken=sEouSLANTG7fkKXbzHl8kgkpWzMqIeL18etPJ3fEuXzYqaKWiMBgnnimD0WWKmj6; sessionid=l0n5ravup8zwjk1hy4x2goivex0j4nen'
-        },
-        data : data
-        };
+// return axios({url : `http://127.0.0.1/rest-auth/registration/`, ...requestOptions}).then(handleResponse);
+}
+// function register(user) {
+//     const requestOptions = {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(user)
+//     };
 
         return axios(config)
         .then(function (response) {

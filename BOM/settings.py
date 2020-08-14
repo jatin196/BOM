@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     #rest framework
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_auth.registration',
     'rest_auth',
 
     #apps
