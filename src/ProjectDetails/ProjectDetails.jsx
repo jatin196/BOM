@@ -3,46 +3,57 @@ import {  Link as RouterLink} from 'react-router-dom'
 import axios from 'axios'
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
+import { connect } from 'react-redux'
+
 import Link from '@material-ui/core/Link';
+import {getProject} from '../_actions/api.actions'
+
 
 import { withRouter } from "react-router";
+
  class ProjectDetails extends Component {
-     constructor(props) {
+      constructor(props) {
          super(props)
      
          this.state = {
-              project : []
+              project : {}
          }
+
+         
      }
-     
+       
+    componentDidUpdate(){
 
-    componentDidMount() {
+        console.log("upd", this.props);
         
-        const id = this.props.match.params.projectId
-const url = process.env.REACT_APP_AXIOS_URL;
-
-        console.log(this.props)
-        axios({
-            method: 'GET',
-            url: `${url}/api/projects/${id}/`
-        }).then(res => {
-            console.log(res)
-            this.setState({project : res.data})
-        })
         
     }
+    async  componentDidMount(){
+        const pid = this.props.match.params.projectId
+        console.log("pid", pid);
+        await this.props.getProject(+pid)
+        
+        // // console.log("def" , this.props);
 
+        //  let project = []
+        // await  this.props.projects ?
+        //  project = this.props.projects.find(pro => pro.id === +id)
+        //  :
+        //  project={}
+        // this.setState({project : project})
+    }
     render() {
         return (
             <div>
                 <div class="container-fluid">
                     <div class="row">
-            <div className="d-flex justify-content-center col mt-5 "><h1> {this.state.project.project_name} </h1></div>
+                  
+            <div className="d-flex justify-content-center col mt-5 "><h1>{ this.props.project ?  this.props.project.project_name  : "loading ... "   }</h1></div>
             <div className="float-right d-flex align-items-end mb-3 ">
-                <Link component={RouterLink}  to={{pathname: `/add-part`, state: `${this.state.project.project_name}`}}>
+               { this.state.project && <Link component={RouterLink}  to={{pathname: `/add-part`, state: {'project' :`${this.state.project.project_name}`, 'parts': `${this.state.project.parts}`}}}>
                     
                  <Chip color="primary" label="Add Part" avatar={<Avatar>+</Avatar>} /> 
-                 </Link>
+                 </Link>}
             </div>
             </div>
 
@@ -58,8 +69,8 @@ const url = process.env.REACT_APP_AXIOS_URL;
             </thead>
             <tbody>
             {   
-                this.state.project.parts ?
-                this.state.project.parts.map((part,index) => {
+                this.props.project ?
+                this.props.project.parts.map((part,index) => {
                     return(
                     <tr key={part.id}>
                         <th scope="row">{index}</th>
@@ -75,8 +86,19 @@ const url = process.env.REACT_APP_AXIOS_URL;
             </tbody>
             </table>
             </div>
-        )
-    }
-}
+        )}}
 
-export default withRouter(ProjectDetails) 
+const mapStateToProps = (state, ownProps) => {
+    const {loading, project} = state.api
+
+    return {
+        loading : loading,
+        project : project
+    }    
+}
+const mapDispatchToProps = {
+    getProject : getProject
+}
+const connectedProjectDetails = connect(mapStateToProps, mapDispatchToProps)(ProjectDetails)
+export { connectedProjectDetails as ProjectDetails }
+// export default withRouter(ProjectDetails) 

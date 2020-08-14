@@ -12,7 +12,7 @@ export const userService = {
 
 let _csrfToken = null;
 export async function getCsrfToken() {
-const url = process.env.serverUrl;
+const url = process.env.REACT_APP_AXIOS_URL;
 
   if (_csrfToken === null) {
     const response = await fetch(`${url}/csrf/`, {
