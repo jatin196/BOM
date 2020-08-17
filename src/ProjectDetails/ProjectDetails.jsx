@@ -10,6 +10,7 @@ import {getProject} from '../_actions/api.actions'
 
 
 import { withRouter } from "react-router";
+import { Navbar } from '../Navbar';
 
  class ProjectDetails extends Component {
       constructor(props) {
@@ -45,6 +46,7 @@ import { withRouter } from "react-router";
     render() {
         return (
             <div>
+                <Navbar></Navbar>
                   <div className="container-fluid">
                     <div class="row">
             <div className="d-flex justify-content-center col mt-5 "><h1>{this.props.project ?  this.props.project.project_name  : "loading ... "  } </h1></div>

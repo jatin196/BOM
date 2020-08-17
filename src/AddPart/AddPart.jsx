@@ -5,6 +5,7 @@ import { withRouter } from "react-router";
 import { connect } from 'react-redux'
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { Navbar } from '../Navbar';
 // import { getCsrfToken } from '../_services'
 
 const status = [
@@ -47,7 +48,7 @@ const status = [
         console.log('state' , this.state);
 
         const {  part_desc, parent_part, part_number, status} = this.state;
-        if ( part_desc && parent_part && part_number, status) {
+        if ( part_desc && parent_part && part_number && status) {
             // const csrftoken =  await getCsrfToken();
             // console.log(csrftoken);
             let token = JSON.parse(localStorage.getItem('user')).data.token
@@ -101,8 +102,10 @@ const status = [
     }
 
     render() {
-        return (
+        return (<div>
+            <Navbar></Navbar>
             <div className="my-5">
+
                 <form  onSubmit={this.handleSubmit}>
       <div className="my-5"><TextField id="standard-basic" onChange={this.handleChange} label="Description" name="part_desc" /></div>
       {/* <div><TextField id="standard-basic" onChange={this.handleChange} label="Parent Part" name="parent_part" /></div> */}
@@ -144,6 +147,7 @@ const status = [
 />
       <input className="my-5" type="submit" value="submit" />
       </form>
+            </div>
             </div>
         )
     }

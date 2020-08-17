@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
+import { Navbar } from '../Navbar';
 
  class AddProject extends Component {
 
@@ -62,6 +63,7 @@ const url = process.env.REACT_APP_AXIOS_URL;
     render() {
         return (
             <div>
+              <Navbar></Navbar>
                 <form  noValidate autoComplete="off" onSubmit={this.handleSubmit}>
                     <div><TextField id="standard-basic" onChange={this.handleChange} label="Project Name" name="project_name" /></div>
                     <div><TextField id="standard-basic" onChange={this.handleChange} label="Project Description" name="project_desc" /></div>
