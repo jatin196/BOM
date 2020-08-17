@@ -30,7 +30,6 @@ urlpatterns = [
     # path('rest-auth/', include('rest_auth.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include('bom_project.api.urls')),
-    path('', include('home.urls')),         
 
     # path('part/', include('bom_project.urls')),
     re_path('.*', TemplateView.as_view(template_name='index.html'))

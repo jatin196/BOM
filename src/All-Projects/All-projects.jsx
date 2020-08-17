@@ -66,9 +66,13 @@ import {getAllProjects} from '../_actions/api.actions'
                     <div class="row">
             <div className="d-flex justify-content-center col mt-3 ml-5 "><h1>   All Projects </h1></div>
             <div className="float-right d-flex align-items-end mb-3 ">
-                <Link to={`/add-project`}>
+                {/* <Link to={`/add-project`}>
                 <button className="btn float-right btn-link ml-auto " >Add Project</button>
-                 </Link>
+                 </Link> */}
+                 <Link component={RouterLink}  to={{pathname: `/add-project`}}>
+                    
+                    <button className="btn float-right btn-link ml-auto" >Add Project</button>
+                </Link>
             </div>
             </div>
             </div>
