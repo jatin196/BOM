@@ -24,6 +24,7 @@ PENDING_STATUS = [
     ('discuss', 'Discuss Later'),
     
 ]
+
 class PartManager(models.Manager):
 
     def get_by_natural_key(self, part_number):
