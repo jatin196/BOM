@@ -9,7 +9,7 @@ import  HomePage  from '../HomePage/HomePage';
 import  LoginPage  from '../LoginPage/LoginPage';
 import  RegisterPage  from '../RegisterPage/RegisterPage';
 import { AddPart } from '../AddPart/AddPart';
-import { AddProject } from '../Add-Project';
+import  AddProject  from '../Add-Project/Add-Project';
 import { AllProjects } from '../All-Projects'
 import { AllParts } from '../All-Parts';
 import  {ProjectDetails}  from '../ProjectDetails/ProjectDetails'

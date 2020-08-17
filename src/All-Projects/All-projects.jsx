@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 // import { MemoryRouter as Router } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import Link from '@material-ui/core/Link';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
@@ -62,18 +63,15 @@ import {getAllProjects} from '../_actions/api.actions'
 
         return (
             <div>
-                <div className="container-fluid">
-                    <div class="row">
-            <div className="d-flex justify-content-center col mt-3 ml-5 "><h1>   All Projects </h1></div>
-            <div className="float-right d-flex align-items-end mb-3 ">
-                {/* <Link to={`/add-project`}>
-                <button className="btn float-right btn-link ml-auto " >Add Project</button>
-                 </Link> */}
-                 <Link component={RouterLink}  to={{pathname: `/add-project`}}>
+                    
+                    <Link component={RouterLink}  to={{pathname: "/add-project"}}>
                     
                     <button className="btn float-right btn-link ml-auto" >Add Project</button>
                 </Link>
-            </div>
+                <div className="container-fluid">
+                    <div class="row">
+            <div className="d-flex justify-content-center col mt-3 ml-5 "><h1>   All Projects </h1></div>
+   
             </div>
             </div>
                 {/* <div>
