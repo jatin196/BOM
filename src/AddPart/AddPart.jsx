@@ -48,7 +48,7 @@ const status = [
         console.log('state' , this.state);
 
         const {  part_desc, parent_part, part_number, status} = this.state;
-        if ( part_desc && parent_part && part_number && status) {
+        if ( part_desc  && part_number && status) {
             // const csrftoken =  await getCsrfToken();
             // console.log(csrftoken);
             let token = JSON.parse(localStorage.getItem('user')).data.token

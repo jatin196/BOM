@@ -51,7 +51,7 @@ import {getAllProjects} from '../_actions/api.actions'
         //     console.log(res)
         //     this.setState({projects: res.data})
         // })
-
+        
         await this.props.getProjects()
         this.setState({projects : this.props.projects})
         // if ( this.props.projects){

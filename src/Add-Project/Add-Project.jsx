@@ -46,8 +46,11 @@ const url = process.env.REACT_APP_AXIOS_URL;
           };
           
           axios(config)
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
+          .then((response ) => {
+            console.log(JSON.stringify(response));
+           this.props.history.push('/home');
+           
+
           })
           .catch(function (error) {
             console.log(error);
