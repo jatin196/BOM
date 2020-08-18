@@ -37,7 +37,7 @@ const url = process.env.REACT_APP_AXIOS_URL;
           
           var config = {
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/projects/',
+            url: `${url}/projects/`,
             headers: { 
               'Content-Type': 'application/x-www-form-urlencoded', 
 
@@ -56,8 +56,7 @@ const url = process.env.REACT_APP_AXIOS_URL;
             console.log(error);
           });
           
-           }
-        
+           }     
 }
 
     handleChange(e) {
