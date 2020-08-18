@@ -37,7 +37,7 @@ const url = process.env.REACT_APP_AXIOS_URL;
           
           var config = {
             method: 'post',
-            url: `${url}/projects/`,
+            url: `${url}/api/projects/`,
             headers: { 
               'Content-Type': 'application/x-www-form-urlencoded', 
 
