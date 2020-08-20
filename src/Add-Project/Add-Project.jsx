@@ -70,11 +70,13 @@ const url = process.env.REACT_APP_AXIOS_URL;
         return (
             <div>
               <Navbar></Navbar>
-              <div className="mt-5">
+              <div className="mt-5 d-flex justify-content-center">
                 <form  noValidate autoComplete="off" onSubmit={this.handleSubmit}>
                     <div><TextField id="standard-basic" onChange={this.handleChange} label="Project Name" name="project_name" /></div>
-                    <div><TextField id="standard-basic" onChange={this.handleChange} label="Project Description" name="project_desc" /></div>
-                    <input type="submit" value="submit" />
+                    <div><TextField  id="outlined-multiline-static" onChange={this.handleChange} label="Project Description" name="project_desc" /></div>
+                    {/* <input  className="submit btn btn-link d-flex justify-content-end" type="submit" value="submit" /> */}
+                    {/* <button></button> */}
+                    <button type="submit" class="btn btn-primary mt-4">Submit</button>
                 </form>
                 </div>
             </div>

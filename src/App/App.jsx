@@ -28,7 +28,7 @@ class App extends React.Component {
     render() {
         const { alert } = this.props;
         return (
-                    <div >
+                    <>
                         {alert.message &&
                             <div className={`alert ${alert.type}`}>{alert.message}</div>
                         }
@@ -48,7 +48,7 @@ class App extends React.Component {
                                 <Redirect from="*" to="/home" />
                             </Switch>
                         </Router>
-                    </div>
+                    </>
         );
     }
 }

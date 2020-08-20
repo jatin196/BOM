@@ -3,6 +3,8 @@ import { Link as RouterLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux' 
 import Link from '@material-ui/core/Link';
+import Container from '@material-ui/core/Container';
+
 
 
 import { userActions } from '../_actions';
@@ -58,7 +60,9 @@ class RegisterPage extends React.Component {
         const { registering  } = this.props;
         const { user, submitted } = this.state;
         return (
-            <div className="col-md-6 col-md-offset-3">
+            <Container  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+
+            <div className="col-md-6 col-md-offset-3 mt-5">
                 <h2>Register</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
         
@@ -101,6 +105,7 @@ class RegisterPage extends React.Component {
                     </div>
                 </form>
             </div>
+            </Container>
         );
     }
 }

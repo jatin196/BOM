@@ -74,10 +74,11 @@ import { Navbar } from '../Navbar';
             <thead>
              <tr>
                 <th scope="col">#</th>
+                <th scope="col">Parent Part</th>
+                <th scope="col">Quantity</th>
                 <th scope="col">Part Number</th>
                 <th scope="col">Part Description</th>
                 <th scope="col">Status</th>
-                <th scope="col">Parent Part</th>
             </tr>
             </thead>
             <tbody>
@@ -87,10 +88,11 @@ import { Navbar } from '../Navbar';
                     return(
                     <tr key={part.id}>
                         <th scope="row">{index}</th>
+                        <td>{part.parent_part ? part.parent_part : <span>null</span> }</td>
+                    <td>{part.qty}</td>
                         <td>{part.part_number}</td>
                         <td>{part.part_desc}</td>
                         <td>{part.status}</td>
-                        <td>{part.parent_part ? part.parent_part : <span>null</span> }</td>
                     </tr>)
                 })
                 :

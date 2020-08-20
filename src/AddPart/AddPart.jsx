@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Navbar } from '../Navbar';
+import { getAllParts } from '../_actions';
 // import { getCsrfToken } from '../_services'
 
 const status = [
@@ -37,11 +38,15 @@ const status = [
             part_number : "",
             status : status[2].value,
             project : '',
+            qty : '',
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    async  componentDidMount(){
+        await this.props.getParts()
 
+    }
     async handleSubmit(e) {
         e.preventDefault();
         await this.setState({  project : this.props.project.project_name });
@@ -63,7 +68,8 @@ const status = [
 
                 'part_number': part_number,
                 'project' : this.state.project,
-                'status' : status
+                'status' : status,
+                'qty' : this.state.qty
                 });
                 console.log(data);
                 var config = {
@@ -83,7 +89,8 @@ const status = [
                         parent_part : "",
                         part_number : "",
                         project : "",
-                        status : ""
+                        status : "",
+                        qty: ""
                     })
                     this.props.history.push('/home')
                     } )
@@ -110,6 +117,7 @@ const status = [
       <div className="my-5"><TextField id="standard-basic" onChange={this.handleChange} label="Description" name="part_desc" /></div>
       {/* <div><TextField id="standard-basic" onChange={this.handleChange} label="Parent Part" name="parent_part" /></div> */}
       <div className="my-5"><TextField id="standard-basic" onChange={this.handleChange} label="Part Number" name="part_number" /></div>
+      <div className="my-5"><TextField id="standard-basic" onChange={this.handleChange} label="Quantity" name="qty" /></div>
       <div className="my-5"> <TextField
           id="standard-select-currency-native"
           select
@@ -136,7 +144,7 @@ const status = [
       <Autocomplete
       className="my-5"
   id="combo-box-demo"
-  options={this.props.project.parts}
+  options={this.props.parts}
   getOptionLabel={(option) => option.part_number}
   style={{ width: 300 }}
   onInputChange={this.handleChange}
@@ -154,17 +162,18 @@ const status = [
 }
 
 const mapStateToProps = (state) => {
-    const {loading, project} = state.api
+    const {loading, project, parts} = state.api
 
     return {
         loading : loading,
-        project : project
+        project : project,
+        parts  : parts
     }    
 }
-// const mapDispatchToProps = {
-//     getProject : getProject
-// }
-const coonnectedAddPart = connect(mapStateToProps, null)(AddPart)
+const mapDispatchToProps = {
+    getParts : getAllParts
+}
+const coonnectedAddPart = connect(mapStateToProps, mapDispatchToProps)(AddPart)
 export { coonnectedAddPart as AddPart }
 
 // export default withRouter(AddPart) ;

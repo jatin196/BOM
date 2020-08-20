@@ -11,9 +11,9 @@ class PartSerializer(serializers.ModelSerializer):
     project = serializers.CharField(source='project.project_name')
     # project = ProjectSerializer()
     class Meta:
-        depth=2
+        depth=1
         model=Part
-        fields = ('id','project', 'part_desc', 'part_number', 'parent_part', 'status')
+        fields = ('id','project', 'part_desc', 'part_number', 'parent_part', 'status', 'qty')
     def create(self, validated_data):
         # print(validated_data['project.project_name'])
         # print(validated_data['parent_part'])

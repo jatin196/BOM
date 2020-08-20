@@ -36,6 +36,7 @@ class Part(models.Model):
     part_desc = models.TextField()
     parent_part = models.ForeignKey('self', null=True, blank=True, related_name='sub_assembly', on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=PENDING_STATUS, default='pending' )
+    qty = models.IntegerField(verbose_name='Quantity', null=True, blank=True, default=1)
     objects = PartManager()
     def natural_key(self):
         return self.part_number
