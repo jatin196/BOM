@@ -13,7 +13,7 @@ import  AddProject  from '../Add-Project/Add-Project';
 import { AllProjects } from '../All-Projects'
 import { AllParts } from '../All-Parts';
 import  {ProjectDetails}  from '../ProjectDetails/ProjectDetails'
-
+import {EditForm} from '../EditForm/EditForm'
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -41,10 +41,11 @@ class App extends React.Component {
                                 <PrivateRoute path="/add-project" component={AddProject} />
                                 <PrivateRoute path="/projects/:projectId" component={ProjectDetails} />
 
-                                        <PrivateRoute path="/projects" component={AllProjects} />
+                                <PrivateRoute path="/projects" component={AllProjects} />
 
                                 <PrivateRoute path="/all-parts" component={AllParts} />
-                                <PrivateRoute path="/add-part" component={AddPart} />
+                                <PrivateRoute path="/add-part/:projectId" component={AddPart} />
+                                <PrivateRoute path="/edit/:partId" component={AddPart} />
                                 <Redirect from="*" to="/home" />
                             </Switch>
                         </Router>

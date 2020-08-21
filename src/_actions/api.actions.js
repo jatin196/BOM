@@ -33,9 +33,9 @@ export function getAllProjects(){
     function failure(error) {return  {type: "Failed", err : error }}
     }
 
-    export function getProject(id){
+    export  function   getProject(id){
 
-        return dispatch =>
+        return  (dispatch) =>
         {
             dispatch(request(+id))
             
@@ -66,7 +66,7 @@ export function getAllProjects(){
         function success(project) {return {type: "Got_Project", project : project}};
         function failure(error) {return  {type: "Failed", err : error }}
         }
-        export function getAllParts(){
+         export  function getAllParts(){
             return dispatch =>
             {
                 dispatch(request())
@@ -74,7 +74,7 @@ export function getAllProjects(){
                 const axios = require('axios')
                 const url = process.env.REACT_APP_AXIOS_URL;
             
-                axios({
+                 axios({
                     method: 'get',
                     
                     url : `${url}/api/parts/`
@@ -82,7 +82,7 @@ export function getAllProjects(){
                 ).then(res => {
                     console.log(res)
                     dispatch(success(res.data))
-        
+                    
                     // this.setState({projects: res.data})
                 },
                 error => {

@@ -6,8 +6,9 @@ import Avatar from '@material-ui/core/Avatar';
 import { connect } from 'react-redux'
 
 import Link from '@material-ui/core/Link';
-import {getProject} from '../_actions/api.actions'
+import {getProject, getAllParts} from '../_actions/api.actions'
 
+import EditRoundedIcon from '@material-ui/icons/EditRounded';
 
 import { withRouter } from "react-router";
 import { Navbar } from '../Navbar';
@@ -33,6 +34,8 @@ import { Navbar } from '../Navbar';
         const pid = this.props.match.params.projectId
         console.log("pid", pid);
         await this.props.getProject(+pid)
+        await this.props.getParts()
+
         
         // // console.log("def" , this.props);
 
@@ -51,9 +54,13 @@ import { Navbar } from '../Navbar';
                     <div class="row">
             <div className="d-flex justify-content-center col mt-5 "><h1>{this.props.project ?  this.props.project.project_name  : "loading ... "  } </h1></div>
             <div className="float-right d-flex align-items-end mb-3 ">
-            <Link component={RouterLink}  to={{pathname: `/add-part`, state: {'project' :`${this.state.project.project_name}`, 'parts': `${this.state.project.parts}`}}}>
+                {
+                    this.props.project ?
+            <Link component={RouterLink}  to={{pathname: `/add-part/${this.props.project.id}`}} >
                 <button className="btn float-right btn-link ml-auto " >Add Part</button> 
                  </Link>
+                : "" 
+                }
             </div>
             </div>
             </div>
@@ -79,6 +86,7 @@ import { Navbar } from '../Navbar';
                 <th scope="col">Part Number</th>
                 <th scope="col">Part Description</th>
                 <th scope="col">Status</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -89,10 +97,13 @@ import { Navbar } from '../Navbar';
                     <tr key={part.id}>
                         <th scope="row">{index}</th>
                         <td>{part.parent_part ? part.parent_part : <span>null</span> }</td>
-                    <td>{part.qty}</td>
+                        <td>{part.qty}</td>
                         <td>{part.part_number}</td>
                         <td>{part.part_desc}</td>
                         <td>{part.status}</td>
+                        <Link component={RouterLink}  to={{pathname: `/edit/${part.id}`}} >
+                            <td> <EditRoundedIcon /></td>
+                        </Link>
                     </tr>)
                 })
                 :
@@ -104,16 +115,20 @@ import { Navbar } from '../Navbar';
             </div>
         )}}
 
-const mapStateToProps = (state, ownProps) => {
-    const {loading, project} = state.api
+const mapStateToProps = (state) => {
+    const {loading, project , parts} = state.api
 
     return {
         loading : loading,
-        project : project
+        project : project,
+        parts  : parts
+
     }    
 }
 const mapDispatchToProps = {
-    getProject : getProject
+    getProject : getProject,
+    getParts : getAllParts,
+
 }
 const connectedProjectDetails = connect(mapStateToProps, mapDispatchToProps)(ProjectDetails)
 export { connectedProjectDetails as ProjectDetails }

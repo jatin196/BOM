@@ -36,7 +36,7 @@ export function api(state = {} ,  action){
                 return {
                     ...state,
 
-                    loading : false,
+                    loading : true,
                 }
             case "Got_All_Parts":
                 return {

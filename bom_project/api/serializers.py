@@ -11,7 +11,7 @@ class PartSerializer(serializers.ModelSerializer):
     project = serializers.CharField(source='project.project_name')
     # project = ProjectSerializer()
     class Meta:
-        depth=1
+        depth=2
         model=Part
         fields = ('id','project', 'part_desc', 'part_number', 'parent_part', 'status', 'qty')
     def create(self, validated_data):
@@ -28,24 +28,25 @@ class PartSerializer(serializers.ModelSerializer):
             parent_part=[None]
         print(project)
         validated_data.pop('project')
-        
-        
         part = Part.objects.create(project=project[0],parent_part=parent_part[0], **validated_data )
-        # print(validated_data)
-        # print(project)
-        # # project=Project.objects.get(project_name=validated_data['project_name'])
-        # project.project_desc = ''
         print(validated_data)
 
         # return Part.objects.create(part=part, project=project)
         return part
+    def update(self, instance, validated_data):
+        instance.part_desc = validated_data.get('part_desc', instance.part_desc)
+        instance.qty = validated_data.get('qty', instance.qty)
+        instance.part_number = validated_data.get('part_number', instance.part_number)
+        instance.status = validated_data.get('status', instance.status)
+        instance.save()
+        return instance
 # class ProjectDetailSerializer(serializers.Serializer):
 #     project=se
 class ProjectSerializer(serializers.ModelSerializer):
     parts = PartSerializer(read_only=True, many=True, required=False)
     class Meta:
         model=Project
-        depth=1
+        depth=2
         fields = ['id', 'project_name', 'project_desc', 'parts']
     
     def create(self, validated_data):
@@ -53,3 +54,4 @@ class ProjectSerializer(serializers.ModelSerializer):
         project = Project.objects.create(**validated_data )
         print(validated_data)
         return project
+ 
