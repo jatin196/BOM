@@ -12,17 +12,6 @@ import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import {getAllProjects} from '../_actions/api.actions'
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     display: 'flex',
-//     flexWrap: 'wrap',
-//     '& > *': {
-//       margin: theme.spacing(1),
-//       width: theme.spacing(16),
-//       height: theme.spacing(16),
-//     },
-//   },
-// }));
 
 
  class AllProjects extends Component {
@@ -35,28 +24,12 @@ import {getAllProjects} from '../_actions/api.actions'
         }
 
     }
-        // componentWillUpdate({projects}){
-        //     this.setState({projects })
-        // }
+        
     async componentDidMount(){
-        // const axios = require('axios')
-        // const url = process.env.REACT_APP_AXIOS_URL;
-
-        // axios({
-        //     method: 'get',
-            
-        //     url : `${url}/api/projects/`
-         //     }
-        // ).then(res => {
-        //     console.log(res)
-        //     this.setState({projects: res.data})
-        // })
         
         await this.props.getProjects()
         this.setState({projects : this.props.projects})
-        // if ( this.props.projects){
-        //     console.log("abc", this.props.projects);
-        // this.setState({project: this.props.projects})}
+        
     }
     
   render() {
@@ -74,19 +47,7 @@ import {getAllProjects} from '../_actions/api.actions'
    
             </div>
             </div>
-                {/* <div>
-                <div>
-                <Typography variant="h2" align="center" gutterBottom>
-                    All Projects
-                </Typography>
-                </div>
-                <div className="btn float-right btn-link ml-auto ">                
-                    <Link  component={RouterLink}  to={{pathname: `/add-project`}}>
-                    <button >Add Project</button>
-                </Link>
-                </div>  
-
-                </div> */}
+            
                 <div>
                 <Grid
                 className="mt-3 ml-5"
@@ -109,7 +70,7 @@ import {getAllProjects} from '../_actions/api.actions'
                                          {project.project_name}
                                     </Typography>
                                     <div className="mt-2">
-                                    <Typography variant="body1" gutterBottom>
+                                    <Typography variant="body1" align="center" gutterBottom>
                                         {project.project_desc}
                                     </Typography>
                                     </div>

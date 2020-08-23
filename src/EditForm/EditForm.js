@@ -28,22 +28,21 @@ const status = [
         label : 'Discuss Later'
     }
 ]
- class EditForm extends Component {
+ class AddPart extends Component {
     constructor(props){
         super(props)
         console.log('props', props);
-        let part = {}
-        let path = this.props.match.url.split('/')
-        part = this.props.parts.find(p => p.id == +path[2])
-        console.log('part', part)
         this.state = {
             // name : "",
-            part_desc : part.part_desc,
-            parent_part :  this.props.parts.find(p => p.part_desc == part.parent_part) || {},
-            part_number : part.part_number,
-            status : status[2].value &&  part.status,
-            project : part.project,
-            qty :  part.qty ,
+            part_desc : "",
+            parent_part : {
+                part_number: "",
+                part_desc : ""
+            },
+            part_number : "",
+            status : status[2].value,
+            project : '',
+            qty : '',
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -135,23 +134,23 @@ const status = [
         this.setState({ [name]: value });}
     }
     
-    // getSelectedItem(part){
-    //     const item = this.props.parts.find((opt)=>{
-    //       if (opt.value == part.part_number)
-    //         return opt;
-    //     })
-    //     return item || {};
-    //   }
+    getSelectedItem(part){
+        const item = this.props.parts.find((opt)=>{
+          if (opt.value == part.part_number)
+            return opt;
+        })
+        return item || {};
+      }
     render() {
-        // let path = this.props.match.url.split('/')
+        let path = this.props.match.url.split('/')
 
-        // let part ={}
-        // this.props.parts ?
-        // (
-        //     part = this.props.parts.find(p =>p.id == path[2])
-        // )
-        // :
-        // part = {}
+        let part ={}
+        this.props.parts ?
+        (
+            part = this.props.parts.find(p =>p.id == path[2])
+        )
+        :
+        part = {}
        
         
         return (<div>
@@ -161,16 +160,16 @@ const status = [
 
                 <form  onSubmit={this.handleSubmit}>
       
-      <div className="my-5"><TextField id="standard-basic" value={  this.state.part_desc}    onChange={this.handleChange} label="Description" name="part_desc" /></div>
+      <div className="my-5"><TextField id="standard-basic" value={ (path[1] == 'edit' && this.props.parts) ?  `${part.part_desc}` : this.state.part_desc}    onChange={this.handleChange} label="Description" name="part_desc" /></div>
       {/* <div><TextField id="standard-basic" onChange={this.handleChange} label="Parent Part" name="parent_part" /></div> */}
-      <div className="my-5"><TextField id="standard-basic" value={  this.state.part_number}  onChange={this.handleChange} label="Part Number" name="part_number" /></div>
-      <div className="my-5"><TextField id="standard-basic" value={ this.state.qty}  onChange={this.handleChange} label="Quantity" name="qty" /></div>
+      <div className="my-5"><TextField id="standard-basic" value={ (path[1] == 'edit' && this.props.parts) ?  `${part.part_number}` : this.state.part_number}  onChange={this.handleChange} label="Part Number" name="part_number" /></div>
+      <div className="my-5"><TextField id="standard-basic" value={ (path[1] == 'edit' && this.props.parts) ?  `${part.qty}` : this.state.qty}  onChange={this.handleChange} label="Quantity" name="qty" /></div>
       <div className="my-5"> <TextField
           id="standard-select-currency-native"
           select
           style={{width: 150}}
           label="Part Status" 
-          value={this.state.status}
+          value={(path[1] == 'edit' && this.props.parts) ?  `${part.status}` : this.state.status}
           name='status'
           onChange={this.handleChange}
           SelectProps={{
@@ -195,7 +194,7 @@ const status = [
   options={this.props.parts}
   getOptionLabel={(option) => option.part_number}
   
-      value={this.state.parent_part}
+      value={( path[1] == 'edit' && this.props.parts && this.props.parts.find(p => p.part_desc===part.parent_part) ) || this.state.parent_part}
 
   style={{ width: 300 }}
   onInputChange={this.handleChange}
@@ -231,7 +230,7 @@ const mapDispatchToProps = {
     getParts : getAllParts,
     getProject : getProject
 }
-const connectedEditForm = connect(mapStateToProps, mapDispatchToProps)(EditForm)
-export { connectedEditForm as EditForm }
+const coonnectedAddPart = connect(mapStateToProps, mapDispatchToProps)(AddPart)
+export { coonnectedAddPart as AddPart }
 
 // export default withRouter(AddPart) ;
