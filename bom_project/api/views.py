@@ -13,31 +13,3 @@ class PartViewset(viewsets.ModelViewSet):
 class ProjectViewset(viewsets.ModelViewSet):
     serializer_class=ProjectSerializer
     queryset=Project.objects.all()
-
-# @api_view(['GET'])
-# def ProjectDetail(request, id):
-#     print(id)
-#     project= {}
-#     obj= get_object_or_404(Project, pk=id)
-#     print(obj.project_name)
-#     if obj:
-#         parts = []
-#         print(obj.parts.all())
-#         for x in obj.parts.all():
-#             part_detail = {}
-#             print(x.id)
-#             part_detail['id'] = x.id
-#             part_detail['desc'] = x.part_desc
-#             part_detail['parent'] = x.parent_part.part_desc
-#             parts.append(part_detail)
-#         print("all parts", parts)
-#         project = {
-#             'id' : id , 
-#             'name' : obj.project_name ,
-#             'desc' : "" ,
-#             'parts' : parts
-#         }
-#         if obj.project_desc:
-#             project['desc'] = obj.project_desc
-#     print("project", project)
-#     return Response({'msg' : "Hello there mate"})

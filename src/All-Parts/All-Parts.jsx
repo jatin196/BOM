@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-// import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-// import { withRouter } from 'react-router-dom';
 
 
 

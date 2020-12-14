@@ -21,11 +21,12 @@ function login(username, password) {
                     dispatch(success(user));
 
                     history.push('/home');
-                    window.location.reload(true)
+                    window.location.reload()
                 },
                 error => {
+                    console.log("error", error);
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    // dispatch(alertActions.error(error.toString()));
                 }
             );
     };
@@ -42,6 +43,7 @@ function logout() {
 
 function register(user) {
     return dispatch => {
+        console.log("userrr", user)
         dispatch(request(user));
 
         userService.register(user)
@@ -49,11 +51,11 @@ function register(user) {
                 user => { 
                     dispatch(success());
                     history.push('/');
-                    dispatch(alertActions.success('Registration successful'));
+                    // dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    // dispatch(alertActions.error(error.toString()));
                 }
             );
     };

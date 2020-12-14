@@ -192,7 +192,7 @@ const status = [
       className="my-5"
   id="combo-box-demo"
   options={this.props.parts}
-  getOptionLabel={(option) => option.part_number}
+  getOptionLabel={(option) => option.part_desc}
   
       value={( path[1] == 'edit' && this.props.parts && this.props.parts.find(p => p.part_desc===part.parent_part) ) || this.state.parent_part}
 
@@ -201,7 +201,7 @@ const status = [
   label="Parent Part" 
             
   name="parent_part"
-  renderInput={(params) => <TextField {...params}   label="Parent Part"    name="parent_part"
+  renderInput={(params) => <TextField {...params}   label="Parent Part NUMMM"    name="parent_part"
     variant="outlined"
     
     />}

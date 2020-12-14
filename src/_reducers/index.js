@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   authentication,
   registration,
   users,
-  alert,
+  // alert,
   api
 });
 

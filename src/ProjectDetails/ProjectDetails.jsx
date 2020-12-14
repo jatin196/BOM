@@ -12,6 +12,7 @@ import EditRoundedIcon from '@material-ui/icons/EditRounded';
 
 import { withRouter } from "react-router";
 import { Navbar } from '../Navbar';
+import Footer from '../footer';
 
  class ProjectDetails extends Component {
       constructor(props) {
@@ -20,8 +21,6 @@ import { Navbar } from '../Navbar';
          this.state = {
               project : {}
          }
-
-         
      }
        
     componentDidUpdate(){
@@ -33,9 +32,8 @@ import { Navbar } from '../Navbar';
     async  componentDidMount(){
         const pid = this.props.match.params.projectId
         console.log("pid", pid);
-        await this.props.getProject(+pid)
+        this.props.getProject(+pid)
         await this.props.getParts()
-
         
         // // console.log("def" , this.props);
 
@@ -47,8 +45,10 @@ import { Navbar } from '../Navbar';
         // this.setState({project : project})
     }
     render() {
+    
+        
         return (
-            <div>
+            <div style={{"overflowX" : "hidden", "height" : "100%" , "bottom":"0px"}}>
                 <Navbar></Navbar>
                   <div className="container-fluid">
                     <div class="row">
@@ -63,27 +63,15 @@ import { Navbar } from '../Navbar';
                 }
             </div>
             </div>
-            </div>
-            {/* <div class="container-fluid">
-                <div class="row">
-                
-        <div className="d-flex justify-content-center col mt-5 "><h1>{ this.props.project ?  this.props.project.project_name  : "loading ... "   }</h1></div>
-        <div className="float-right d-flex align-items-end mb-3 ">
-            { this.state.project && <Link component={RouterLink}  to={{pathname: `/add-part`, state: {'project' :`${this.state.project.project_name}`, 'parts': `${this.state.project.parts}`}}}>
-                
-                <Chip color="primary" label="Add Part" avatar={<Avatar>+</Avatar>} /> 
-                </Link>}
-        </div>
-        </div>
-
-        </div> */}
-            <table className="table table-striped">
+        <div className="ml-5 mr-5">
+            <table className="table">
             <thead>
              <tr>
                 <th scope="col">#</th>
                 <th scope="col">Parent Part</th>
-                <th scope="col">Quantity</th>
                 <th scope="col">Part Number</th>
+
+                <th scope="col">Quantity</th>
                 <th scope="col">Part Description</th>
                 <th scope="col">Status</th>
                 <th scope="col"></th>
@@ -92,13 +80,26 @@ import { Navbar } from '../Navbar';
             <tbody>
             {   
                 this.props.project ?
-                this.props.project.parts.map((part,index) => {
+                this.props.project.parts.sort(function(a, b) {
+                    var nameA = a.part_desc.toUpperCase(); // ignore upper and lowercase
+                    var nameB = b.part_desc.toUpperCase(); // ignore upper and lowercase
+                    if (nameA < nameB) {
+                      return -1;
+                    }
+                    if (nameA > nameB) {
+                      return 1;
+                    }
+                  
+                    // names must be equal
+                    return 0;
+                }).map((part,index) => {
                     return(
                     <tr key={part.id}>
-                        <th scope="row">{index}</th>
+                        <th scope="row">{index+1}</th>
                         <td>{part.parent_part ? part.parent_part : <span>null</span> }</td>
-                        <td>{part.qty}</td>
                         <td>{part.part_number}</td>
+                        <td>{part.qty}</td>
+
                         <td>{part.part_desc}</td>
                         <td>{part.status}</td>
                         <Link component={RouterLink}  to={{pathname: `/edit/${part.id}`}} >
@@ -112,6 +113,9 @@ import { Navbar } from '../Navbar';
             }
             </tbody>
             </table>
+            </div>
+            </div>
+
             </div>
         )}}
 

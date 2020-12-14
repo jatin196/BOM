@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-// import { logout } from '../_services/user.service'
 import { userActions } from '../_actions';
 import {  Link, Redirect } from 'react-router-dom';
 
 
 class Navbar extends Component {
   constructor(props) {
+    
     super(props);
     this.handleClick = this.handleClick.bind(this)
   }
@@ -28,8 +28,13 @@ class Navbar extends Component {
 
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav ml-auto">
+    <li className="nav-item active">
+    <Link to='/bom' className="nav-link" id="bom">Parts</Link>
+
+      </li>
       <li className="nav-item active">
-        <a href='/' className="nav-link">Home <span className="sr-only">(current)</span></a>
+      <Link to='/'  className="nav-link" id="home">Home</Link>
+
       </li>
       <li className="nav-item active">
 
@@ -38,22 +43,12 @@ class Navbar extends Component {
         <Link to='/login' onClick={this.handleClick} className="nav-link" id="logout">Logout</Link>
         :
         <Link to='/login' className="nav-link" id="login">Login</Link>
-
-        
     }
-
-        
       </li>
-
- 
-
-
-
     </ul>
   
   </div>
 </nav>
-        
         )
     }
 }

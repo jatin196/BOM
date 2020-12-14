@@ -1,13 +1,21 @@
+
 import React from 'react';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux' 
 import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
-
-
-
 import { userActions } from '../_actions';
+
+const validEmailRegex = RegExp(
+    /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+  );
+
+const validateForm = errors => {
+    let valid = true;
+    Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+    return valid;
+  };
 
 class RegisterPage extends React.Component {
     constructor(props) {
@@ -19,6 +27,11 @@ class RegisterPage extends React.Component {
                 password1: '',
                 password2: ''
             },
+            errors: {
+                email:'',
+                password1:'',
+                password2:'',
+            },
             submitted: false
         };
 
@@ -29,9 +42,40 @@ class RegisterPage extends React.Component {
     handleChange(event) {
         const { name, value } = event.target;
         const { user } = this.state;
+
+        let errors = this.state.errors;
+
+        switch (name) {
+
+          case 'email': 
+            errors.email = 
+              validEmailRegex.test(value)
+                ? ''
+                : 'Email is not valid!';
+            break;
+          case 'password1': 
+            errors.password1 = 
+              value.length < 8
+                ? 'Password must be at least 8 characters long!'
+                : '';
+            break;
+
+            case 'password2': 
+            errors.password2 = 
+              this.state.password1 === this.state.password2
+                ? 'Passwords do not match'
+                : '';
+            break;
+          default:
+            break;
+        }
+    
+        this.setState({errors, [name]: value});
+
         this.setState({
+            errors:errors,
             user: {
-                ...user,
+            
                 [name]: value
             }
         });
@@ -42,22 +86,33 @@ class RegisterPage extends React.Component {
 
         this.setState({ submitted: true });
         const { user } = this.state;
-        if (user.email && user.password1 && user.password2) {
+        console.log("usererer", user)
+        if(validateForm(this.state.errors)) {
+            console.info('Valid Form')
             this.props.register(user);
-        }
+
+          }else{
+            console.error('Invalid Form')
+          }
         this.setState({             
             user: {
             email: '',
             password1: '',
             password2: ''
         },
+            errors: {
+                email:'',
+                password1:'',
+                password2:'',
+            },
         submitted: false });
-
+        this.history.push('/')
         
     }
 
     render() {
         const { registering  } = this.props;
+        const {errors} = this.state;
         const { user, submitted } = this.state;
         return (
             <Container  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -69,16 +124,21 @@ class RegisterPage extends React.Component {
                     <div className={'form-group' + (submitted && !user.email ? ' has-error' : '')}>
                         <label htmlFor="email">Email</label>
                         <input type="text" className="form-control" name="email" value={user.email} onChange={this.handleChange} />
-                        {submitted && !user.email &&
-                            <div className="help-block">Email is required</div>
+                        {(submitted && !user.email &&
+                            <div className="help-block">Email is required</div>) ||
+                            (errors.email.length > 0 && 
+                                <span className='error'>{errors.email}</span>)
                         }
                     </div>
                     <div className={'form-group' + (submitted && !user.password1 ? ' has-error' : '')}>
                         <label htmlFor="password">Password</label>
                         <input type="password" className="form-control" name="password1" value={user.password1} onChange={this.handleChange} />
-                        {submitted && !user.password1 &&
+                        {(submitted && !user.password1 &&
                             (
                             <div className="help-block">Password is required</div>
+                            )) ||
+                            (
+                            errors.password1.length > 0 && <span className='error'>{errors.password1}</span>
                             )
                         }
                     </div>
@@ -90,6 +150,10 @@ class RegisterPage extends React.Component {
                         }
                         {submitted && user.password1 !== user.password2 &&
                             <div className="help-block">Passwords Don't match</div>
+                            ||
+                            (
+                            errors.password2.length > 0 && <span className='error'>{errors.password2}</span>
+                            )
                         }
                     </div>
                     <div className="form-group">

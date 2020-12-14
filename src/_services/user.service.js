@@ -4,10 +4,7 @@ export const userService = {
     login,
     logout,
     register,
-    // getAll,
-    // getById,
-    // update,
-    // delete: _delete
+
 };
 
 let _csrfToken = null;
@@ -29,11 +26,6 @@ async function login(email, password) {
     // const csrftoken =  await getCsrfToken();
     const axios = require('axios')
 
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ username, password })
-    // };
     const url = process.env.REACT_APP_AXIOS_URL;
 
     return   axios({
@@ -48,7 +40,7 @@ async function login(email, password) {
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('user', JSON.stringify(user.data.token));
             
             return user;
         });
@@ -137,32 +129,17 @@ const url = process.env.REACT_APP_AXIOS_URL;
 // }
 
 function handleResponse(response) {
+  console.log("ferw");
     console.log("response" , response);
     
     if (response.status !== 200){
         if(response.status === 401){
             logout()
-            window.location.reload(true)
+            window.location.reload()
         }
         // const error = (data && data.message) ||response.statusText;
         return Promise.reject(response)
     }
     return response;
 
-
-    // return response.text().then(text => {
-    //     const data = text && JSON.parse(text);
-    //     if (!response.ok) {
-    //         if (response.status === 401) {
-    //             // auto logout if 401 response returned from api
-    //             logout();
-    //             location.reload(true);
-    //         }
-
-    //         const error = (data && data.message) || response.statusText;
-    //         return Promise.reject(error);
-    //     }
-
-    //     return data;
-    // });
 }

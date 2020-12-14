@@ -1,5 +1,5 @@
 
-import { alertActions } from './';
+// import { alertActions } from './';
 
 export function getAllProjects(){
     return dispatch =>
@@ -22,7 +22,7 @@ export function getAllProjects(){
         },
         error => {
             dispatch(failure(error.toString()))
-            dispatch(alertActions.error(error.toString()));
+            // dispatch(alertActions.error(error.toString()));
 
         }
         )
@@ -56,7 +56,7 @@ export function getAllProjects(){
             },
             error => {
                 dispatch(failure(error.toString()))
-                dispatch(alertActions.error(error.toString()));
+                // dispatch(alertActions.error(error.toString()));
     
             }
             )
@@ -87,7 +87,7 @@ export function getAllProjects(){
                 },
                 error => {
                     dispatch(failure(error.toString()))
-                    dispatch(alertActions.error(error.toString()));
+                    // dispatch(alertActions.error(error.toString()));
         
                 }
                 )
