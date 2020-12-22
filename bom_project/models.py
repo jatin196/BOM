@@ -38,6 +38,10 @@ class Part(models.Model):
     status = models.CharField(max_length=10, choices=PENDING_STATUS, default='pending' )
     qty = models.IntegerField(verbose_name='Quantity', null=True, blank=True, default=1)
     objects = PartManager()
+    modeling_time = models.DateTimeField(verbose_name='Modeling Time', null=True, blank=True)
+    detailing_time = models.DateTimeField(verbose_name='Detailing Time', null=True, blank=True)
+    assembly_time = models.DateTimeField(verbose_name='Assembly Time', null=True, blank=True)
+    supplier = models.CharField(max_length=180, null=True, blank=True)
     def natural_key(self):
         return self.part_number
 

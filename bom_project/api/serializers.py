@@ -13,7 +13,7 @@ class PartSerializer(serializers.ModelSerializer):
     class Meta:
         depth=2
         model=Part
-        fields = ('id','project', 'part_desc', 'part_number', 'parent_part', 'status', 'qty')
+        fields = '__all__'
     def create(self, validated_data):
         # print(validated_data['project.project_name'])
         # print(validated_data['parent_part'])
@@ -41,6 +41,10 @@ class PartSerializer(serializers.ModelSerializer):
         instance.qty = validated_data.get('qty', instance.qty)
         instance.part_number = validated_data.get('part_number', instance.part_number)
         instance.status = validated_data.get('status', instance.status)
+        instance.modeling_time = validated_data.get('modeling_time', instance.modeling_time)
+        instance.detailing_time = validated_data.get('detailing_time', instance.detailing_time)
+        instance.assembly_time = validated_data.get('assembly_time', instance.assembly_time)
+        instance.supplier = validated_data.get('supplier', instance.supplier)
         if 'parent_part' in validated_data:
             parent_part =Part.objects.filter(part_number = validated_data['parent_part'])
             print(parent_part)

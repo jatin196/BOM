@@ -44,6 +44,18 @@ import Footer from '../footer';
         //  project={}
         // this.setState({project : project})
     }
+    UTCDateToLocal(date){
+        return new Date(date)
+    }
+    UTCTimeToLocal(date){
+        
+        console.log(typeof(date))
+        const utcdate = new Date(date);
+        // return utcdate.toLocaleString;
+        return utcdate.getDate() + '/'+ utcdate.getMonth() +'/'+ utcdate.getFullYear() +' '+ utcdate.getHours() +':'+ utcdate.getMinutes();
+         
+    }
+    
     render() {
     
         
@@ -74,6 +86,10 @@ import Footer from '../footer';
                 <th scope="col">Quantity</th>
                 <th scope="col">Part Description</th>
                 <th scope="col">Status</th>
+                <th scope="col">Modeling Time</th>
+                <th scope="col">Detailing Time</th>
+                <th scope="col">Assembly Time</th>
+                <th scope="col">Supplier</th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -93,6 +109,7 @@ import Footer from '../footer';
                     // names must be equal
                     return 0;
                 }).map((part,index) => {
+
                     return(
                     <tr key={part.id}>
                         <th scope="row">{index+1}</th>
@@ -102,6 +119,11 @@ import Footer from '../footer';
 
                         <td>{part.part_desc}</td>
                         <td>{part.status}</td>
+                        <td>{part.modeling_time ? this.UTCTimeToLocal(part.modeling_time) : '-'}</td>
+                        {/* <td>{part.modeling_time ? part.modeling_time : '-'}</td> */}
+                        <td>{part.detailing_time ? this.UTCTimeToLocal(part.detailing_time) : '-' }</td>
+                        <td>{part.assembly_time ? this.UTCTimeToLocal(part.assembly_time) : '-'}</td>
+                        <td>{part.supplier ? part.supplier : '-'}</td>
                         <Link component={RouterLink}  to={{pathname: `/edit/${part.id}`}} >
                             <td> <EditRoundedIcon /></td>
                         </Link>
