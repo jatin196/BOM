@@ -289,7 +289,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Navbar } from "../Navbar";
 import TextField from "@material-ui/core/TextField";
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import { getAllParts, getProject } from "../_actions";
 
 const STATUS = [
@@ -333,23 +333,23 @@ const AddPart = (props) => {
   //       dtime: part.assembly_time || Date.now(),
   //       supplier: part.supplier || "",
 
-  const [part_desc, setpart_desc] = useState(part.part_desc || "");
-  const [parent_part, setparent_part] = useState(part.parent_part || "");
-  const [part_number, setpart_number] = useState(part.part_number || "");
-  const [status, setstatus] = useState(part.status || status[0].value);
-  const [project, setproject] = useState(part.project || "");
-  const [qty, setqty] = useState(part.qty || "");
-  const [mtime, setmtime] = useState(part.mtime || "");
-  const [atime, setatime] = useState(part.atime || "");
-  const [dtime, setdtime] = useState(part.dtime || "");
-  const [supplier, setsupplier] = useState(part.supplier || "");
+  const [part_desc, setpart_desc] = useState((part && part.part_desc) || "");
+  const [parent_part, setparent_part] = useState((part && part.parent_part) || "");
+  const [part_number, setpart_number] = useState((part && part.part_number) || "");
+  const [status, setstatus] = useState((part && part.status) || STATUS[0].value);
+  const [project, setproject] = useState((part && part.project) || "");
+  const [qty, setqty] = useState((part && part.qty) || "");
+  const [mtime, setmtime] = useState((part && part.mtime) || "");
+  const [atime, setatime] = useState((part && part.atime) || "");
+  const [dtime, setdtime] = useState((part && part.dtime) || "");
+  const [supplier, setsupplier] = useState((part && part.supplier) || "");
 
   const handleSubmit = (e) => {
     let url = process.env.REACT_APP_AXIOS_URL;
 
     e.preventDefault();
     // this.setState({ project: props.project.project_name });
-    setproject(props.project.project_name)
+    setproject(props.project.project_name);
     let path = props.match.url.split("/");
 
     let method = "";
@@ -408,7 +408,7 @@ const AddPart = (props) => {
       .catch((error) => console.log(error));
     // }
   };
-
+console.log(props.parts.part_desc)
   return (
     <div>
       <Navbar></Navbar>
@@ -462,7 +462,18 @@ const AddPart = (props) => {
               ))}
             </TextField>
           </div>
-
+          {/* <Autocomplete
+            id="combo-box-demo"
+            options={props.parts}
+            getOptionLabel={(option) => option.part_desc}
+            style={{ width: 300 }}
+            value={parent_part}
+            autoselect={true}
+            onChange={(e) => setparent_part(e.target.value)}
+            renderInput={(params) => (
+              <TextField {...params} label="Parent Part" variant="outlined" />
+            )}
+          /> */}
           <div className="my-5">
             <TextField
               id="standard-basic"
@@ -470,7 +481,7 @@ const AddPart = (props) => {
               onChange={(e) => setparent_part(e.target.value)}
               label="Parent Part"
               name="parent_part"
-            />
+            /> 
           </div>
           {/* times */}
           <div className="my-5">
