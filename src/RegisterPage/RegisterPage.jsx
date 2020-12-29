@@ -70,7 +70,7 @@ class RegisterPage extends React.Component {
             break;
         }
     
-        this.setState({errors, [name]: value});
+        // this.setState({errors, [name]: value});
 
         this.setState({
             errors:errors,
@@ -79,6 +79,7 @@ class RegisterPage extends React.Component {
                 [name]: value
             }
         });
+        console.log(event);
     }
 
     handleSubmit(event) {

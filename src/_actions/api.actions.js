@@ -98,3 +98,35 @@ export function getAllProjects(){
             function failure(error) {return  {type: "Failed", err : error }}
             }
         
+            export  function deletePart(id){
+                return dispatch =>
+                {
+                    dispatch(request())
+                    
+                    const axios = require('axios')
+                    const url = process.env.REACT_APP_AXIOS_URL;
+                
+                     axios({
+                        method: 'delete',
+                        
+                        url : `${url}/api/parts/${id}/`
+                        }
+                    ).then(res => {
+                        console.log(res)
+                        dispatch(success(res.data))
+                        
+                        // this.setState({projects: res.data})
+                    },
+                    error => {
+                        dispatch(failure(error.toString()))
+                        // dispatch(alertActions.error(error.toString()));
+            
+                    }
+                    )
+                    
+                };
+                function request(){ return  {type: "Deleting Part"}}
+                function success(parts) {return {type: "Part Deleted", parts : parts}};
+                function failure(error) {return  {type: "Part could not be deleted", err : error }}
+                }
+            

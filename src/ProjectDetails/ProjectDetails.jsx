@@ -4,15 +4,18 @@ import axios from "axios";
 import Chip from "@material-ui/core/Chip";
 import Avatar from "@material-ui/core/Avatar";
 import { connect } from "react-redux";
-
+import DeleteRoundedIcon from '@material-ui/icons/Delete';
 import Link from "@material-ui/core/Link";
-import { getProject, getAllParts } from "../_actions/api.actions";
-
-import EditRoundedIcon from "@material-ui/icons/EditRounded";
+import { getProject, getAllParts, deletePart } from "../_actions/api.actions";
 
 import { withRouter } from "react-router";
 import { Navbar } from "../Navbar";
 import Footer from "../footer";
+import { withStyles } from '@material-ui/core/styles';
+import {   IconButton } from "@material-ui/core";
+// import { AddCircle, AddCircleOutline } from "material-ui-icons";
+// import classNames from 'classnames';
+import Icon from '@material-ui/core/Icon';
 
 class ProjectDetails extends Component {
   constructor(props) {
@@ -60,7 +63,24 @@ class ProjectDetails extends Component {
       utcdate.getMinutes()
     );
   }
+removeRow(id){
+  const axios = require('axios')
+  const url = process.env.REACT_APP_AXIOS_URL;
 
+   axios({
+      method: 'delete',
+      
+      url : `${url}/api/parts/${id}/`
+      }
+  ).then(res => {
+      console.log("Successfully Deleted", res)
+      this.forceUpdate()      
+      // this.setState({projects: res.data})
+  }, error=>{
+    console.log("Not Deleted", error)      
+    
+  })
+}
   render() {
     return (
       <div style={{ overflowX: "hidden", height: "100%", bottom: "0px" }}>
@@ -99,11 +119,11 @@ class ProjectDetails extends Component {
 
                   <th scope="col">Quantity</th>
                   <th scope="col">Part Description</th>
-                  <th scope="col">Status</th>
+                  {/* <th scope="col">Status</th>
                   <th scope="col">Modeling Time</th>
                   <th scope="col">Detailing Time</th>
                   <th scope="col">Assembly Time</th>
-                  <th scope="col">Supplier</th>
+                  <th scope="col">Supplier</th> */}
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -132,13 +152,13 @@ class ProjectDetails extends Component {
                           <td>{part.qty}</td>
 
                           <td>{part.part_desc}</td>
-                          <td>{part.status}</td>
+                          {/* <td>{part.status}</td>
                           <td>
                             {part.modeling_time
                               ? this.UTCTimeToLocal(part.modeling_time)
                               : "-"}
                           </td>
-                          {/* <td>{part.modeling_time ? part.modeling_time : '-'}</td> */}
+                           <td>{part.modeling_time ? part.modeling_time : '-'}</td>
                           <td>
                             {part.detailing_time
                               ? this.UTCTimeToLocal(part.detailing_time)
@@ -149,8 +169,8 @@ class ProjectDetails extends Component {
                               ? this.UTCTimeToLocal(part.assembly_time)
                               : "-"}
                           </td>
-                          <td>{part.supplier ? part.supplier : "-"}</td>
-                          <Link
+                          <td>{part.supplier ? part.supplier : "-"}</td> */}
+                          {/* <Link
                             component={RouterLink}
                             to={{ pathname: `/edit/${part.id}` }}
                           >
@@ -158,7 +178,25 @@ class ProjectDetails extends Component {
                               {" "}
                               <EditRoundedIcon />
                             </td>
-                          </Link>
+                          </Link> */}
+                         <td>
+                         <Icon color="primary">add_circle</Icon>
+                         <IconButton tooltip="Delete this and all sub parts" onClick={()=>this.removeRow(part.id)}>
+                         <DeleteRoundedIcon  />
+                          </IconButton>
+                          <Link
+                  component={RouterLink}
+                  to={{ pathname: `/add-part/${this.props.project.id}` }}
+                >
+                  {/* <IconButton>
+                 <AddCircleOutline />
+                  </IconButton> */}
+                <Icon className='fa fa-plus-circle' color="primary" />
+
+                </Link> 
+                           {/* <button onClick={()=>this.removeRow(part.id)}> <DeleteRoundedIcon  /></button> */}
+                           </td> 
+
                         </tr>
                       );
                     })
